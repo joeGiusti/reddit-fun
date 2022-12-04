@@ -1,0 +1,54 @@
+.App {
+  text-align: center;
+  background-color: rgb(35, 35, 35);
+  min-height: 100vh;
+}
+.redditDiv{
+  margin: 5px 0px;
+  border: 1px solid rgb(105, 102, 102);
+  background-color: black;
+  color: white;
+  padding-top: 5px;
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  box-sizing: border-box;
+}
+.redditDiv:hover{
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.449);
+}
+.image{
+  width: calc(100% + 0px);
+  margin-left: 0px;
+  object-fit: contain;
+  bottom: 5px;
+  left: 5px;
+  margin-bottom: -4px;
+}
+.title{
+  position: relative;
+  top:5px;
+  z-index: 2;
+  padding: 10px;
+}
+.urlInput{
+  height: 200px;
+  background-color: black;
+  color: white;
+  width: 96%;
+  margin-top: 10px;
+}
+.fullScreen{
+  position: fixed;
+  height: 95vh;
+  width: 95vw;
+  left: 2.5vw;
+  top: 2.5vh;
+}
+.column{
+  width: 48%;
+  margin: 5px;
+  display: inline-block;
+  vertical-align: top;
+}
