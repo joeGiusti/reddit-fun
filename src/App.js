@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useEffect, useRef, useState } from 'react';
 import Column from './Componenrs/Column';
