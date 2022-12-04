@@ -7,16 +7,43 @@ function App() {
   const [dataState, setDataState] = useState([])
 
   const postArrayRef = useRef([])
+  const observerRef = useRef()
+  const lastPost = useRef()
+  const urlArray = useRef([])
 
   useEffect(()=>{
+
+    // Create an intersection observer
+    observerRef.current = createObserver()
+
+    // Load the initial posts
     loadFromText()
+
   },[])
  
+  // Creates an intersection observer taht will add posts when the last post is visible
+  function createObserver(){
+    return new IntersectionObserver(elements => {
+      elements.forEach(element => {
+        
+        if(element.isIntersecting){
+        
+          // Load more posts
+          loadNext()
+
+          // Stop observing the previous last posts
+          observerRef.current.unobserve(element.target)
+          element.target.classList.remove("last-post")          
+        }
+      })
+    })
+  }
+
   // Gets the list of posts from the url and calls addToArry
   function addFromLink(_sub, _after){
 
     // Create the url from the input text
-    var subUrl = "https://www.reddit.com/" + _sub + ".json?limit=25"+"&after="+_after
+    var subUrl = "https://www.reddit.com/" + _sub + ".json?limit=10"+"&after="+_after
     
     // Fetch the json and add the posts in the data array of the json
     fetch(subUrl).then(res=>res.json()).then(json=>addToArray(json.data.children))
@@ -26,13 +53,28 @@ function App() {
   // Adds the given post items to the array of posts
   function addToArray(_itemsToAdd){
 
+    console.log("postArrayRef.current")
+    console.log(postArrayRef.current)
+    console.log("_itemsToAdd")
     console.log(_itemsToAdd)
 
     // Make an array with both 
     var tempArray = [...postArrayRef.current, ..._itemsToAdd]
 
+    // Save the after value of the last post so new posts can be laded when user scrolls past the last post
+    lastPost.current = tempArray[tempArray.length-1].kind+"_"+tempArray[tempArray.length-1].data.id
+
+
+    // Save the new array in the ref so we can add to it next time more loads
+    postArrayRef.current = tempArray
+
     // Put the array in state to update the dom and display them
     setDataState(tempArray)
+
+    // Add the observers after the state has updated and the posts are rendered
+    setTimeout(() => {
+      addObservers()
+    }, (1000));
 
   }
 
@@ -59,25 +101,48 @@ function App() {
     setDataState(tempArray)
   }
 
+  
+
   // Uses the links in the text area to load posts
   function loadFromText(){
 
     // Removes the current posts
     postArrayRef.current = []
+    lastPost.current = null
 
     // Get the list of links
     var string = document.getElementsByClassName("urlInput")[0].value
     var links = string.split('\n')
 
-    // Add to the list of posts from each one
-    links.forEach(link => addFromLink(link))
+    urlArray.current = links
 
+    // Add to the list of posts from each one
+    //links.forEach(link => addFromLink(link, lastPost.current))
+
+    // Seperated this out so it can be called independent of the textbox reading and post array reset
+    loadNext()
+
+  }
+  function loadNext(){
+    console.log("loading next")
+    urlArray.current.forEach(link => addFromLink(link, lastPost.current))
   }
 
   // Opens a new tab with the given URL
   function openTab(_url){
     window.open(_url, "_blank")
   } 
+
+  function addObservers(){
+    console.log("adding observers")
+    var lastPosts = document.querySelectorAll(".last-post")
+    console.log("to:")
+    console.log(lastPosts)
+    lastPosts.forEach(post => {
+      observerRef.current.observe(post)
+
+    })
+  }
 
   return (
     <div className="App">
@@ -108,6 +173,8 @@ export default App;
 
     //#region 
     /*
+
+    After you have the Post component working properly work on the loading from selected subs
 
     for redgifs its specified under
     item.data.domain = "redgifs.com"
