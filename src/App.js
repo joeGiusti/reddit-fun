@@ -1,6 +1,8 @@
 import './App.css';
 import { useEffect, useRef, useState } from 'react';
 import Column from './Componenrs/Column';
+import Home from "./Pages/Home.js"
+import { Route, Router, Routes } from 'react-router-dom';
 
 function App() {
 
@@ -145,26 +147,13 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <textarea className='urlInput' defaultValue={"r/geckos"}></textarea>
-      <div>
-        <button onClick={loadFromText}>Load</button>
-      </div>
-      <Column dataState={dataState} side={0}></Column>
-      <Column dataState={dataState} side={1}></Column>
-
-
-      {/* <div className='fullScreen'>
-        <iframe 
-          src="https://redgifs.com/ifr/loathsomescalyenglishsetter" 
-          frameborder="0" 
-          scrolling="no" 
-          width="100%" 
-          height="100%"
-          allowfullscreen 
-        ></iframe>
-      </div> */}
-    </div>
+    // <Home></Home>
+    <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="/reddit-fun/" element={<Home/>} />
+      <Route path="/reddit-fun/:type" element={<Home/>} />
+      <Route path="/reddit-fun/:type/:name" element={<Home/>} />
+    </Routes>    
   );
 }
 
