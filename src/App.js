@@ -19,7 +19,7 @@ function App() {
     observerRef.current = createObserver()
 
     // Load the initial posts
-    loadFromText()
+    //loadFromText()
 
   },[])
  
@@ -103,8 +103,6 @@ function App() {
     setDataState(tempArray)
   }
 
-  
-
   // Uses the links in the text area to load posts
   function loadFromText(){
 
@@ -148,8 +146,8 @@ function App() {
 
   return (
     // <Home></Home>
-    <Routes>
-      <Route path="/" element={<Home/>} />
+    <Routes>      
+      <Route path="/:type/:name" element={<Home/>} />
       <Route path="/reddit-fun/" element={<Home/>} />
       <Route path="/reddit-fun/:type" element={<Home/>} />
       <Route path="/reddit-fun/:type/:name" element={<Home/>} />

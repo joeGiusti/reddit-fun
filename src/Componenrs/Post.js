@@ -1,11 +1,12 @@
  import React, { useRef, useState } from 'react'
  import VideoViewer from './VideoViewer' 
+    import playImage from "../Images/playIcon.png"
 
  function Post({item, index, dataState, side, openTab}) {
 
     const hovering = useRef(false)
     const [videoLink, setVideoLink] = useState()
-
+    const [showPost, setShowPost] =  useState(false)
     // show different things based on the type
     // also do actions like play video on hover
     // can put overlays
@@ -18,53 +19,17 @@
 
     // show a video play overlay if it is a type with a video
 
+    // link to open the reddit post
+    // https://www.reddit.com + permalink
+
     function openPost(){
 
-        console.log("opening post")
-        console.log(item)
-
-        // https://m.youtube.com/watch?v=yd1XEkMotK8
-        // https://www.youtube.com/watch?app=desktop&v=yd1XEkMotK8
-        // https://www.youtube.com/embed/yd1XEkMotK8
-
-        console.log(item.data.domain)
-        console.log(item.data.link_url)
-
-        var url = " "
-
-        if(!item.data.domain)
-            url = item.data.link_url
-        else
-            url = item.data.url.replaceAll("amp;", "")
-
-        if(item.data.domain === "redgifs.com")
-            url =  item.data.media.oembed.html.split('"')[1].replaceAll("amp;", "")
-
-        if(item.data.domain === "v.redd.it")    
-            url = item.data.media.reddit_video.fallback_url.replaceAll("amp;", "")
-
-        if(item.data.domain === "i.redd.it")
-            url = item.data.url.replaceAll("amp;", "")
-
-        if(item.data.domain === "imgur.com")
-            url = item.data.url.replaceAll("amp;", "")
-
-        if(item.data.domain === "i.imgur.com")
-            // url = item.data.url.replaceAll("amp;", "")
-            url = "https://imgur.com/"+item.data.url.replaceAll("amp;", "").split("/")[3].split(".")[0]+"/embed"
-            
-            //:https://imgur.com/91S22q6/embed
-
-        if(item.data.domain === "gfycat.com")
-            url = item.data.media.oembed.html.split('"')[3].replaceAll("amp;", "")
+        setShowPost(true)
         
-            if(item.data.domain === "m.youtube.com")
-            url = "https://www.youtube.com/embed/"+item.data.url.split("=")[1]
-
-        setVideoLink(url)
     }
     function closePost(){
         setVideoLink(null)
+        setShowPost(false)
     }
 
   // Opens a new tab with the given URL
@@ -76,10 +41,11 @@
 //onClick={()=>openTab(item.data.url)}
    return (
     <div key={index+item.id}>
-        {videoLink && <VideoViewer src={videoLink} close={closePost}></VideoViewer>}
+        {showPost && <VideoViewer close={closePost} item={item} openTab={openTab}></VideoViewer>}
         {(index % 2 == side) &&
         <div className={'redditDiv ' + ((index == dataState.length - 3 || index == dataState.length - 4) && " last-post")} onClick={openPost}>
-            <div className='title'>{item.data.title}</div>
+            <div className='title'>{item.data.title}</div>            
+            
             {/* <div className='title'>{item.data.domain}</div> */}
             <div 
                 className='redditLink' 
@@ -97,12 +63,23 @@
 
             {/* <img src={item.data.thumbnail}></img> */}
 
+            {(
+                item.data.domain === "redgifs.com" ||
+                item.data.domain === "v.redd.it" ||
+                item.data.domain === "gfycat.com" ||
+                item.data.domain === "imgur.com" ||
+                item.data.domain === "m.youtube.com"||
+                item.data.url?.includes("gifv")
+                
+             ) && 
+                <div className='playButton'><img src={playImage}></img></div>
+            }
+            
             {item.data.domain ?
                 <img className='image' src={item.data?.preview?.images[0]?.source?.url.replaceAll("amp;", "")}></img>            
                 :
                 <img className='image' src={item.data?.link_url.replaceAll("amp;", "")}></img>                                            
             }    
-
         </div>
         }
     </div>

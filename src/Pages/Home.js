@@ -10,25 +10,30 @@ function Home() {
   const observerRef = useRef()
   const lastPost = useRef()
   const urlArray = useRef([])
+  const firstLoad = useRef(true)
 
-    const { type, name } = useParams()
+  const { type, name } = useParams()
 
     // 3 column mode instead of just 2
     // lots of duplicates for some reason
     // add a topnav like the other site
   useEffect(()=>{
 
-    // Create an intersection observer
-    observerRef.current = createObserver()
-
-    // Load the initial posts    
-    
-    // If there is no link specified in the url load from the text area
-    if((type == null) || (name == null))
-        loadFromText()
-    // Else load from the url
-    else
-        loadFromURL()
+    if(firstLoad.current){
+      firstLoad.current = false
+      
+      // Create an intersection observer
+      observerRef.current = createObserver()
+  
+      // Load the initial posts    
+      
+      // If there is no link specified in the url load from the text area
+      if((type == null) || (name == null))
+          loadFromText()
+      // Else load from the url
+      else
+          loadFromURL()
+    }
 
 
   },[])
@@ -120,10 +125,12 @@ function Home() {
     lastPost.current = null
 
     // Get the list of links
-    var string = document.getElementsByClassName("urlInput")[0].value
-    var links = string.split('\n')
+    // var string = document.getElementsByClassName("urlInput")[0]?.value
+    // var links = string.split('\n')
 
-    urlArray.current = links
+    //urlArray.current = links
+
+    urlArray.current = ["./r/funny"]
 
     // Add to the list of posts from each one
     //links.forEach(link => addFromLink(link, lastPost.current))
@@ -162,23 +169,15 @@ function Home() {
 
   return (
     <div className="App">
-      <textarea className='urlInput' defaultValue={"r/funny"}></textarea>
+      {/* <textarea className='urlInput' defaultValue={"r/funny"}></textarea>
       <div>
         <button onClick={loadFromText}>Load</button>
+      </div> */}
+      <div className='topBar'>
+        Reddit-Fun
       </div>
       <Column dataState={dataState} side={0}></Column>
       <Column dataState={dataState} side={1}></Column>
-
-      {/* <div className='fullScreen'>
-        <iframe 
-          src="https://redgifs.com/ifr/loathsomescalyenglishsetter" 
-          frameborder="0" 
-          scrolling="no" 
-          width="100%" 
-          height="100%"
-          allowfullscreen 
-        ></iframe>
-      </div> */}
     </div>
   );
 }
