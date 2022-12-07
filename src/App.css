@@ -136,3 +136,12 @@
   height: 100%;
   width: 100%;
 }
+.imgur-embed-pub{
+  height: 500px;
+  width: 500px;
+}
+.imgur{
+  color: white;
+  height: 200px;
+  line-height: 200px;
+}

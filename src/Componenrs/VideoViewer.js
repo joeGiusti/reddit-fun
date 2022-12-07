@@ -181,7 +181,9 @@ function VideoViewer({item, close, openTab}) {
             url = "https://www.youtube.com/embed/"+item.data.url.split("=")[1]
 
         // If it is something that can be displayed by an img tag set a variable so it will display as such
-        if(url.includes(".jpg") || url.includes(".png") || url.includes(".gifv") || url.includes("imgur"))
+        if(url.includes("imgur"))
+          setType("imgur")
+        else if(url.includes(".jpg") || url.includes(".png") || url.includes(".gifv"))
           setType("image")
         else if(url.includes("/r/"))
           setType("text")
@@ -219,6 +221,18 @@ function VideoViewer({item, close, openTab}) {
         {type === "image" && <img src={source}></img>}
         {type === "iframe" && <iframe src={source}></iframe>}
         {type === "text" && <div></div>}
+        {type === "imgur" && 
+        <div className='imgur'>
+          <div>
+            imgur not supported
+          </div>
+          <div 
+            className='redditLink' 
+            onClick={()=>window.open(item.data.url, "_blank")}
+          >
+            {item.data.url}
+        </div>
+        </div>}
         <div className='title'>{item.data.title}</div>
         <div className='title'>{item.data.selftext}</div>
     </div>

@@ -129,8 +129,12 @@ function Home() {
     // var links = string.split('\n')
 
     //urlArray.current = links
+    
+    var x = window.location.href.split("?")    
+    //urlArray.current = ["./r/funny"]
+    urlArray.current = [x[1]]
 
-    urlArray.current = ["./r/funny"]
+    console.log(urlArray.current)
 
     // Add to the list of posts from each one
     //links.forEach(link => addFromLink(link, lastPost.current))

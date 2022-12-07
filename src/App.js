@@ -146,7 +146,7 @@ function App() {
 
   return (
     // <Home></Home>
-    <Routes>      
+    <Routes>            
       <Route path="/:type/:name" element={<Home/>} />
       <Route path="/reddit-fun/" element={<Home/>} />
       <Route path="/reddit-fun/:type" element={<Home/>} />
