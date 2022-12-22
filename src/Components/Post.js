@@ -35,16 +35,15 @@
   // Opens a new tab with the given URL
   function openTab(event, _url){
     event.stopPropagation()
+    event.preventDefault()
     window.open(_url, "_blank")
   } 
 
-
-
 //onClick={()=>openTab(item.data.url)}
    return (
-    <div key={index + item.id}>
+    <div key={index+item.id}>
         {showPost && <VideoViewer close={closePost} item={item} openTab={openTab}></VideoViewer>}
-        {true &&
+        {(index % 2 == side) &&
         <div className={'redditDiv ' + ((index == dataState.length - 3 || index == dataState.length - 4) && " last-post")} onClick={openPost}>
             <div className='title'>{item.data.title}</div>            
             
