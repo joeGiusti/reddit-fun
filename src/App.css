@@ -5,6 +5,7 @@ html {
   text-align: center;
   background-color: rgb(35, 35, 35);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 .redditDiv{
   margin: 5px 0px;
@@ -70,10 +71,10 @@ html {
   background-color: blue;
 }
 .videoViewer{  
-  height: 95vh;
+  height: calc(98vh - 60px);
   width: 90vw;
   position: fixed;
-  top: 2vh;
+  top: 60px;
   left: 3vw;
   background-color: rgb(36, 35, 35);
   z-index: 3;
