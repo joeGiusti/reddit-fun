@@ -1,3 +1,6 @@
+html {
+  background-color: rgb(35, 35, 35);
+}
 .App {
   text-align: center;
   background-color: rgb(35, 35, 35);
@@ -58,7 +61,7 @@
   top: 2.5vh;
 }
 .column{
-  width: 48%;
+  width: 40%;
   margin: 5px;
   display: inline-block;
   vertical-align: top;
@@ -144,4 +147,9 @@
   color: white;
   height: 200px;
   line-height: 200px;
+}
+@media screen and (max-width: 650px){
+  .column{
+    width: 80%;
+  }
 }

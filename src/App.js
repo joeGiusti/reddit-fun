@@ -19,6 +19,10 @@ function App() {
     // Create an intersection observer
     observerRef.current = createObserver()
 
+    console.log("abc")
+    console.log(window.location.href.split("reddit-fun"))
+    // if(Array.isArray(window.location.href.split("reddit-fun")) && window.location.href.split("reddit-fun").length >= 2 && window.location.href.split("reddit-fun")[2]?.length == 0)
+    //   window.location.href = window.location.href.split("/")[1]+"/reddit-fun?r/funny"
     // Load the initial posts
     //loadFromText()
 
@@ -135,6 +139,11 @@ function App() {
 
     window.open(window.location.href.split("/")[0] +"/reddit-fun/?"+_url, "_blank")
   } 
+  function setUrl(event, _url){
+    event.stopPropagation()
+
+    window.location.href = window.location.href.split("/")[0] +"/reddit-fun/?"+_url
+  } 
 
   function addObservers(){
     console.log("adding observers")
@@ -150,7 +159,7 @@ function App() {
   return (
     // <Home></Home>
     <div>
-    <Nav openTab={openTab}></Nav>
+    <Nav openTab={setUrl}></Nav>
     <Routes>            
       <Route path="/:type/:name" element={<Home/>} />
       <Route path="/reddit-fun/" element={<Home/>} />
