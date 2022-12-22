@@ -130,8 +130,10 @@ function App() {
   }
 
   // Opens a new tab with the given URL
-  function openTab(_url){
-    window.open(_url, "_blank")
+  function openTab(event, _url){
+    event.stopPropagation()
+
+    window.open(window.location.href.split("/")[0] +"/reddit-fun/?"+_url, "_blank")
   } 
 
   function addObservers(){
@@ -148,7 +150,7 @@ function App() {
   return (
     // <Home></Home>
     <div>
-    <Nav></Nav>
+    <Nav openTab={openTab}></Nav>
     <Routes>            
       <Route path="/:type/:name" element={<Home/>} />
       <Route path="/reddit-fun/" element={<Home/>} />
