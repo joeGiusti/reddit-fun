@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Column from './Componenrs/Column';
 import Home from "./Pages/Home.js"
 import { Route, Router, Routes } from 'react-router-dom';
+import Nav from './Components/Nav';
 
 function App() {
 
@@ -146,12 +147,15 @@ function App() {
 
   return (
     // <Home></Home>
+    <div>
+    <Nav></Nav>
     <Routes>            
       <Route path="/:type/:name" element={<Home/>} />
       <Route path="/reddit-fun/" element={<Home/>} />
       <Route path="/reddit-fun/:type" element={<Home/>} />
       <Route path="/reddit-fun/:type/:name" element={<Home/>} />
     </Routes>    
+    </div>
   );
 }
 
