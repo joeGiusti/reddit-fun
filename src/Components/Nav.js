@@ -83,8 +83,8 @@ function Nav(props) {
         <img className='navAvatar'  src={squareAvatarUrl}></img>
         <div className='dropDown'>
             Common Links
-            {pages.map(pageInfo => (
-                <div className='dropDownItem' onClick={(e)=>props.openTab(e, pageInfo.url)}>{pageInfo.name}</div>
+            {pages.map((pageInfo, index) => (
+                <div key={"linkItem"+index} className='dropDownItem' onClick={(e)=>props.openTab(e, pageInfo.url)}>{pageInfo.name}</div>
             ))}
         </div>
     </div>

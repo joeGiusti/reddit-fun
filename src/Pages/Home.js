@@ -70,9 +70,6 @@ function Home() {
   // Adds the given post items to the array of posts
   function addToArray(_itemsToAdd){
 
-    console.log("_itemsToAdd")
-    console.log(_itemsToAdd)
-
     // Make an array with both 
     var tempArray = [...postArrayRef.current, ..._itemsToAdd]
 
@@ -133,8 +130,6 @@ function Home() {
     var x = window.location.href.split("?")    
     //urlArray.current = ["./r/funny"]
     urlArray.current = [x[1]]
-
-    console.log(urlArray.current)
 
     // Add to the list of posts from each one
     //links.forEach(link => addFromLink(link, lastPost.current))

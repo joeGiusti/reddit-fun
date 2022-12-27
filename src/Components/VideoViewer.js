@@ -26,7 +26,6 @@ function VideoViewer({item, close, openTab}) {
     const element = useRef()
 
     useEffect(()=>{
-      console.log(item)
       if(justStarted.current){
         element.current = document.querySelector("#"+item.data.id)
         openPost()
@@ -36,7 +35,6 @@ function VideoViewer({item, close, openTab}) {
     },[])
     
     function setUpDragListener(){
-      console.log("setting up drag listener")
 
       // element?.addEventListener("dragstart", event => {
       //   startMove(event)                
@@ -63,7 +61,6 @@ function VideoViewer({item, close, openTab}) {
       dragStartCoordinates.current.y = event.clientY
     }
     function endMove(event){
-      console.log("Moved to {x: "+event.clientX+" y: "+event.clientY+"}")
 
       dragEndCoordinates.current.x = event.clientX
       dragEndCoordinates.current.y = event.clientY
@@ -107,9 +104,7 @@ function VideoViewer({item, close, openTab}) {
         // Calculate difference between drag start and current mouse position
         const deltaX = currentMouseCoordinates.current.x - dragStartCoordinates.current.x
         const deltaY = currentMouseCoordinates.current.y - dragStartCoordinates.current.y
-  
-        console.log("moved mouse by x: " + deltaX + " y: " + deltaY)        
-  
+    
         if(element){
           element.current.style.left = initialWindowCoordinates.current.x + deltaX + "px"
           element.current.style.top = initialWindowCoordinates.current.y + deltaY + "px"
@@ -139,9 +134,6 @@ function VideoViewer({item, close, openTab}) {
 
     function openPost(){
 
-        console.log("opening post")
-        console.log(item)
-
         var url = " "
 
         // If there is no domain
@@ -162,11 +154,9 @@ function VideoViewer({item, close, openTab}) {
         if(item.data.domain === "i.redd.it")
             url = item.data.url.replaceAll("amp;", "")
 
-        console.log("cheking for imgur")
         // imagur images and vieos
         if(item.data.domain.includes("imgur")){
-          url = item.data.preview.reddit_video_preview.fallback_url    
-          console.log("imgur url: "+url)
+          url = item.data?.preview?.reddit_video_preview?.fallback_url    
         }
         //url = item.data.url.replaceAll("amp;", "")
         
