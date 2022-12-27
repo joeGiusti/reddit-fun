@@ -34,13 +34,21 @@
 
   // Opens a new tab with the given URL
   function openTab(event, _url){
+
+    console.log("going to url " + _url)
+
     event.stopPropagation()
     
     var currentUrl = window.location.href
+    var fullUrl = ""
     if(currentUrl.includes("localhost"))
-        window.open("http://localhost:3000/"+_url, "_blank")
+        fullUrl = "http://localhost:3000/" + _url
     else
-        window.open("https://joegiusti.github.io/reddit-fun/"+_url, "_blank")
+        fullUrl = "https://joegiusti.github.io/reddit-fun/?" + _url
+
+    console.log("opening full url: " + fullUrl)
+
+    window.open(fullUrl, "_blank")
   } 
 
 //onClick={()=>openTab(item.data.url)}

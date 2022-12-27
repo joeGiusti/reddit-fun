@@ -128,13 +128,17 @@ function App() {
 
   // Opens a new tab with the given URL
   function openTab(event, _url){
+    
     event.stopPropagation()
     
     var currentUrl = window.location.href
+    var fullUrl = ""
     if(currentUrl.includes("localhost"))
-        window.open("http://localhost:3000/"+_url, "_blank")
+        fullUrl = "http://localhost:3000/" + _url
     else
-        window.open("http://joegiusti.github.io/reddit-fun/"+_url)
+        fullUrl = "https://joegiusti.github.io/reddit-fun/?" + _url
+
+    window.open(fullUrl, "_blank")
   } 
   function setUrl(event, _url){
     event.stopPropagation()
