@@ -14,9 +14,6 @@ function Home() {
 
   const { type, name } = useParams()
 
-    // 3 column mode instead of just 2
-    // lots of duplicates for some reason
-    // add a topnav like the other site
   useEffect(()=>{
 
     if(firstLoad.current){
@@ -121,11 +118,6 @@ function Home() {
     postArrayRef.current = []
     lastPost.current = null
 
-    // Get the list of links
-    // var string = document.getElementsByClassName("urlInput")[0]?.value
-    // var links = string.split('\n')
-
-    //urlArray.current = links
     
     var x = window.location.href.split("?")    
     //urlArray.current = ["./r/funny"]

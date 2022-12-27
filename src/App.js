@@ -129,8 +129,12 @@ function App() {
   // Opens a new tab with the given URL
   function openTab(event, _url){
     event.stopPropagation()
-
-    window.open(window.location.href.split("/")[0] +"/reddit-fun/?"+_url, "_blank")
+    
+    var currentUrl = window.location.href
+    if(currentUrl.includes("localhost"))
+        window.open("http://localhost:3000/"+_url, "_blank")
+    else
+        window.open("http://joegiusti.github.io/reddit-fun/"+_url)
   } 
   function setUrl(event, _url){
     event.stopPropagation()
@@ -150,14 +154,12 @@ function App() {
   }
 
   return (
-    // <Home></Home>
     <div>
-    <Nav openTab={setUrl}></Nav>
+    <Nav openTab={openTab}></Nav>
     <Routes>            
+      <Route path="/" element={<Home/>} />
       <Route path="/:type/:name" element={<Home/>} />
       <Route path="/reddit-fun/" element={<Home/>} />
-      <Route path="/reddit-fun/:type" element={<Home/>} />
-      <Route path="/reddit-fun/:type/:name" element={<Home/>} />
     </Routes>    
     </div>
   );

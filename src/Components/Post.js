@@ -35,8 +35,12 @@
   // Opens a new tab with the given URL
   function openTab(event, _url){
     event.stopPropagation()
-    event.preventDefault()
-    window.open(_url, "_blank")
+    
+    var currentUrl = window.location.href
+    if(currentUrl.includes("localhost"))
+        window.open("http://localhost:3000/"+_url, "_blank")
+    else
+        window.open("https://joegiusti.github.io/reddit-fun/"+_url, "_blank")
   } 
 
 //onClick={()=>openTab(item.data.url)}
@@ -47,16 +51,15 @@
         <div className={'redditDiv ' + ((index == dataState.length - 3 || index == dataState.length - 4) && " last-post")} onClick={openPost}>
             <div className='title'>{item.data.title}</div>            
             
-            {/* <div className='title'>{item.data.domain}</div> */}
             <div 
                 className='redditLink' 
-                onClick={event => openTab(event, "./reddit-fun/?"+item.data.subreddit_name_prefixed)}
+                onClick={event => openTab(event, item.data.subreddit_name_prefixed)}
             >
                 {item.data.subreddit_name_prefixed}
             </div>
             <div 
                 className='redditLink'
-                onClick={event => openTab(event, "./reddit-fun/?user/"+item.data.author)}
+                onClick={event => openTab(event, "user/"+item.data.author)}
             >
                 {"user/"+item.data.author}
             </div>            
