@@ -10,6 +10,7 @@ function Column(props) {
 
   return (
     <div className='column'>
+      hey
     {props.dataState.map((item, index) => (
       <Post item={item} index={index} dataState={props.dataState} side={props.side} openTab={openTab}></Post>
       // <div key={index+item.id}>

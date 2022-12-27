@@ -23,6 +23,10 @@ function Nav(props) {
         {
             name: "Grool",
             url: "r/grool" 
+        },
+        {
+            name: "Cat Gifs",
+            url: "r/catgifs" 
         }
     ]
 

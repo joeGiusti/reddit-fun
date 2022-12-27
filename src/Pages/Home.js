@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Column from '../Componenrs/Column';
+import Column from '../Components/Column';
 
 function Home() {
 

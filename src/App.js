@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useRef, useState } from 'react';
-import Column from './Componenrs/Column';
+import Column from './Components/Column';
 import Home from "./Pages/Home.js"
 import { Route, Router, Routes } from 'react-router-dom';
 import Nav from './Components/Nav';

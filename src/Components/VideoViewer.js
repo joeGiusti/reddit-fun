@@ -26,6 +26,7 @@ function VideoViewer({item, close, openTab}) {
     const element = useRef()
 
     useEffect(()=>{
+      console.log(item)
       if(justStarted.current){
         element.current = document.querySelector("#"+item.data.id)
         openPost()
@@ -161,16 +162,20 @@ function VideoViewer({item, close, openTab}) {
         if(item.data.domain === "i.redd.it")
             url = item.data.url.replaceAll("amp;", "")
 
+        console.log("cheking for imgur")
         // imagur images and vieos
-        if(item.data.domain === "imgur.com")
-            url = item.data.url.replaceAll("amp;", "")
+        if(item.data.domain.includes("imgur")){
+          url = item.data.preview.reddit_video_preview.fallback_url    
+          console.log("imgur url: "+url)
+        }
+        //url = item.data.url.replaceAll("amp;", "")
         
         // imagur images
-        if(item.data.domain === "i.imgur.com")
-            // url = item.data.url.replaceAll("amp;", "")
-            //url = "https://imgur.com/"+item.data.url.replaceAll("amp;", "").split("/")[3].split(".")[0]+"/embed"
-            url = item.data.url
-            //:https://imgur.com/91S22q6/embed
+        // if(item.data.domain === "i.imgur.com")
+        //     // url = item.data.url.replaceAll("amp;", "")
+        //     //url = "https://imgur.com/"+item.data.url.replaceAll("amp;", "").split("/")[3].split(".")[0]+"/embed"
+        //     url = item.data.url
+        //     //:https://imgur.com/91S22q6/embed
 
         // Gyfcat
         if(item.data.domain === "gfycat.com")
@@ -181,8 +186,8 @@ function VideoViewer({item, close, openTab}) {
             url = "https://www.youtube.com/embed/"+item.data.url.split("=")[1]
 
         // If it is something that can be displayed by an img tag set a variable so it will display as such
-        if(url.includes("imgur"))
-          setType("imgur")
+        // if(url.includes("imgur"))
+        //   setType("imgur")
         else if(url.includes(".jpg") || url.includes(".png") || url.includes(".gifv"))
           setType("image")
         else if(url.includes("/r/"))
