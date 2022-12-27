@@ -117,14 +117,10 @@ function Home() {
     // Removes the current posts
     postArrayRef.current = []
     lastPost.current = null
-
     
-    var x = window.location.href.split("?")    
-    //urlArray.current = ["./r/funny"]
-    urlArray.current = [x[1]]
+    // Puts the default page in the current url to load from
+    urlArray.current = ["r/catgifs"]
 
-    // Add to the list of posts from each one
-    //links.forEach(link => addFromLink(link, lastPost.current))
 
     // Seperated this out so it can be called independent of the textbox reading and post array reset
     loadNext()
