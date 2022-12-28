@@ -11,7 +11,7 @@ function Column(props) {
   return (
     <div className='column'>
       {props.dataState.map((item, index) => (
-        <Post key={item.data.id} item={item} index={index} dataState={props.dataState} side={props.side} openTab={openTab}></Post>      
+        <Post key={index+item.data.id} item={item} index={index} dataState={props.dataState} side={props.side} openTab={openTab}></Post>      
       ))}
     </div>  
   )

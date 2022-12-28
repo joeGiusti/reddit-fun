@@ -126,20 +126,6 @@ function App() {
     urlArray.current.forEach(link => addFromLink(link, lastPost.current))
   }
 
-  // Opens a new tab with the given URL
-  function openTab(event, _url){
-    
-    event.stopPropagation()
-    
-    var currentUrl = window.location.href
-    var fullUrl = ""
-    if(currentUrl.includes("localhost"))
-        fullUrl = "http://localhost:3000/?" + _url
-    else
-        fullUrl = "https://joegiusti.github.io/reddit-fun/?" + _url
-
-    window.location.href = fullUrl
-  } 
   function setUrl(event, _url){
     event.stopPropagation()
 
@@ -159,7 +145,7 @@ function App() {
 
   return (
     <div>
-    <Nav openTab={openTab}></Nav>
+    <Nav></Nav>
     <Routes>            
       <Route path="/" element={<Home/>} />
       <Route path="/:type/:name" element={<Home/>} />

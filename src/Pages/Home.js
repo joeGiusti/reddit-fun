@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Column from '../Components/Column';
+import { setCurrentUrl } from '../Components/Nav/NavSlice';
 
 function Home() {
 
@@ -13,6 +15,7 @@ function Home() {
   const firstLoad = useRef(true)
 
   const { type, name } = useParams()
+  const dispatcher = useDispatch()
 
   useEffect(()=>{
 
@@ -24,9 +27,9 @@ function Home() {
     // Create an intersection observer
     observerRef.current = createObserver()
 
-    // Load the initial posts    
-    
-    // This does nothing
+    // Gets a url from the window.location.href or sets a default
+    getUrlFromLocation()
+  
     if((type == null) || (name == null)){
       var urlLinks = window.location.href.split("?")
       console.log(urlLinks)
@@ -35,9 +38,6 @@ function Home() {
       if(Array.isArray(urlLinks) && urlLinks.length > 1)
         urlArray.current = [urlLinks[1]]
     }
-
-    console.log("hello from home")
-    console.log(urlArray.current)
 
     // If there is no link specified in the url load from the text area
     if(Array.isArray(urlArray.current) && urlArray.current.length < 1)
@@ -48,6 +48,21 @@ function Home() {
 
   },[])
  
+  function getUrlFromLocation(){
+    // Look in the url for a sub link 
+    var fromHref = window.location.href.split("?")
+    
+    console.log("url array from location: ")
+    console.log(fromHref)
+ 
+    // If there is something there to add put it in the current url state
+    if(Array.isArray(fromHref) && fromHref.length > 1)
+      dispatcher(setCurrentUrl(fromHref[1]))
+    // If there is no link in the location set a default url   
+    else
+      dispatcher(setCurrentUrl("r/catgifs"))
+  }
+
   // Creates an intersection observer taht will add posts when the last post is visible
   function createObserver(){
     return new IntersectionObserver(elements => {
@@ -153,11 +168,6 @@ function Home() {
   function loadNext(){
     urlArray.current.forEach(link => addFromLink(link, lastPost.current))
   }
-
-  // Opens a new tab with the given URL
-  function openTab(_url){
-    window.open(_url, "_blank")
-  } 
 
   function addObservers(){
 

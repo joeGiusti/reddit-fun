@@ -1,8 +1,9 @@
  import React, { useRef, useState } from 'react'
  import VideoViewer from './VideoViewer/VideoViewer.js' 
  import playImage from "../Images/playIcon.png"
+import { openTab } from '../GlobalFunctions/Functions.js'
 
- function Post({item, index, dataState, side, openTab}) {
+ function Post({item, index, dataState, side}) {
 
     const hovering = useRef(false)
     const [videoLink, setVideoLink] = useState()
@@ -32,24 +33,6 @@
         setShowPost(false)
     }
 
-  // Opens a new tab with the given URL
-  function openTab(event, _url){
-
-    console.log("going to url " + _url)
-
-    event.stopPropagation()
-    
-    var currentUrl = window.location.href
-    var fullUrl = ""
-    if(currentUrl.includes("localhost"))
-        fullUrl = "http://localhost:3000/?" + _url
-    else
-        fullUrl = "https://joegiusti.github.io/reddit-fun/?" + _url
-
-    console.log("opening full url: " + fullUrl)
-
-    window.open(fullUrl, "_blank")
-  } 
 
 //onClick={()=>openTab(item.data.url)}
    return (
