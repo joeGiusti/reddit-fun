@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Column from './Components/Column';
 import Home from "./Pages/Home.js"
 import { Route, Router, Routes } from 'react-router-dom';
-import Nav from './Components/Nav';
+import Nav from './Components/Nav/Nav';
 
 function App() {
 
@@ -139,7 +139,6 @@ function App() {
         fullUrl = "https://joegiusti.github.io/reddit-fun/?" + _url
 
     window.location.href = fullUrl
-    //window.open(fullUrl, "_blank")
   } 
   function setUrl(event, _url){
     event.stopPropagation()

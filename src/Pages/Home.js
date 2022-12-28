@@ -16,31 +16,35 @@ function Home() {
 
   useEffect(()=>{
 
-    if(firstLoad.current){
+    if(!firstLoad.current){
       firstLoad.current = false
+      return
+    }
       
-      // Create an intersection observer
-      observerRef.current = createObserver()
-  
-      // Load the initial posts    
-      
-      if((type == null) || (name == null)){
-        var urlLinks = window.location.href.split("?")
-        console.log(urlLinks)
-        // type = urlLink.split("/")[0]
-        // name = urlLink.split("/")[1]
-        if(Array.isArray(urlLinks) && urlLinks.length > 1)
-          urlArray.current = [urlLinks[1]]
-      }
+    // Create an intersection observer
+    observerRef.current = createObserver()
 
-      // If there is no link specified in the url load from the text area
-      if(!urlArray.current)
-          loadFromText()
-      // Else load from the url
-      else
-          loadFromURL()
+    // Load the initial posts    
+    
+    // This does nothing
+    if((type == null) || (name == null)){
+      var urlLinks = window.location.href.split("?")
+      console.log(urlLinks)
+      // type = urlLink.split("/")[0]
+      // name = urlLink.split("/")[1]
+      if(Array.isArray(urlLinks) && urlLinks.length > 1)
+        urlArray.current = [urlLinks[1]]
     }
 
+    console.log("hello from home")
+    console.log(urlArray.current)
+
+    // If there is no link specified in the url load from the text area
+    if(Array.isArray(urlArray.current) && urlArray.current.length < 1)
+        loadFromText()
+    // Else load from the url
+    else
+        loadFromURL()
 
   },[])
  

@@ -1,6 +1,6 @@
  import React, { useRef, useState } from 'react'
- import VideoViewer from './VideoViewer' 
-    import playImage from "../Images/playIcon.png"
+ import VideoViewer from './VideoViewer/VideoViewer.js' 
+ import playImage from "../Images/playIcon.png"
 
  function Post({item, index, dataState, side, openTab}) {
 
