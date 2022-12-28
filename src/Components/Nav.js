@@ -12,18 +12,18 @@ function Nav(props) {
             name: "Funny",
             url: "r/funny" 
         },
-        {
-            name: "Gone Wild",
-            url: "r/gonewild" 
-        },
-        {
-            name: "Petite Gone Wild",
-            url: "r/petitegonewild" 
-        },
-        {
-            name: "Grool",
-            url: "r/grool" 
-        },
+        // {
+        //     name: "Gone Wild",
+        //     url: "r/gonewild" 
+        // },
+        // {
+        //     name: "Petite Gone Wild",
+        //     url: "r/petitegonewild" 
+        // },
+        // {
+        //     name: "Grool",
+        //     url: "r/grool" 
+        // },
         {
             name: "Cat Gifs",
             url: "r/catgifs" 

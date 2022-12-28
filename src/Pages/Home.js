@@ -24,8 +24,17 @@ function Home() {
   
       // Load the initial posts    
       
+      if((type == null) || (name == null)){
+        var urlLinks = window.location.href.split("?")
+        console.log(urlLinks)
+        // type = urlLink.split("/")[0]
+        // name = urlLink.split("/")[1]
+        if(Array.isArray(urlLinks) && urlLinks.length > 1)
+          urlArray.current = [urlLinks[1]]
+      }
+
       // If there is no link specified in the url load from the text area
-      if((type == null) || (name == null))
+      if(!urlArray.current)
           loadFromText()
       // Else load from the url
       else
@@ -128,8 +137,10 @@ function Home() {
   }
   function loadFromURL(){
 
+    console.log("loading from url")
+    console.log(urlArray.current)
     // Put the value in the url into the urlArray as the only value
-    urlArray.current = [type + "/" + name]
+    //urlArray.current = [type + "/" + name]
 
     // Seperated this out so it can be called independent of the textbox reading and post array reset
     loadNext()

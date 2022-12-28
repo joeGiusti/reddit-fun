@@ -134,11 +134,12 @@ function App() {
     var currentUrl = window.location.href
     var fullUrl = ""
     if(currentUrl.includes("localhost"))
-        fullUrl = "http://localhost:3000/" + _url
+        fullUrl = "http://localhost:3000/?" + _url
     else
         fullUrl = "https://joegiusti.github.io/reddit-fun/?" + _url
 
-    window.open(fullUrl, "_blank")
+    window.location.href = fullUrl
+    //window.open(fullUrl, "_blank")
   } 
   function setUrl(event, _url){
     event.stopPropagation()
