@@ -1,0 +1,66 @@
+.authWindow{
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 5px;
+    position: fixed;
+    top: calc(50vh - 200px);    
+    width: 450px;    
+    left: calc(50vw - 225px);
+    color: white;
+    box-sizing: border-box;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.authWindow h1{
+    font-size: 20px;
+}
+.authWindow input{
+    height: 32px;
+    color: black;
+    background-image: linear-gradient(white, rgb(209, 209, 209));
+    box-sizing: border-box;
+    border-radius: 2px;
+    margin: 4px;    
+    padding: 0 10px;
+    width: 80%;
+    outline: none;
+    border: none;
+    margin-left: 10%;
+}
+
+.authWindow button{
+    width: 80%;
+    height: 34px;
+    margin-top: 10px;
+    background-color: rgb(255, 114, 95);
+    background-image: linear-gradient(rgba(255, 0, 0, 0), red);
+    color: white;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: 500ms;
+}
+.authWindow button:hover{
+    background-color: rgb(255, 142, 127);
+    box-shadow: 0 0 20px rgb(255, 51, 24);
+}
+.loginBottomText{
+    font-size: 11px;
+    margin-top: 10px;
+    color: rgb(201, 201, 201);    
+}
+.authWindow a{
+    padding: 5px;
+    color: white;    
+    cursor: pointer;
+    text-align: center;
+}
+.authWindow a:hover{
+    text-decoration: underline;
+}
+.loginErrorMessage{
+    font-size: 14px;
+    color: rgb(255, 235, 235);
+    margin-top: 10px;
+}

@@ -1,0 +1,38 @@
+.navBar{
+    position: fixed;
+    top: 0;
+    width: calc(100% - 20px);
+    padding: 10px;
+    transition: 500ms;    
+    opacity: 0;
+    z-index: 4;
+}
+.navBackground{
+    background-color: #111;    
+}
+.showNav{    
+    opacity: 1;
+}
+.navLogo{
+    float: left;
+    width: 160px;
+    cursor: pointer;
+    transition: 500ms;
+}
+.navLogo:hover{
+    transform: scale(1.08);
+}
+.navAvatar{
+    float: right;
+    width: 40px;
+    cursor: pointer;
+    margin-top: 2px;
+    transition: 500ms;
+}
+.navAvatar:hover{
+    transform: scale(1.08);
+}
+
+.dontDisplay{
+    display: none;
+}

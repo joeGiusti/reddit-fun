@@ -1,0 +1,38 @@
+.videoViewer{  
+    height: calc(100vh - 20px);
+    width: 90vw;
+    position: fixed;
+    top: 10px;
+    left: 3vw;
+    background-color: rgb(15, 14, 14);
+    box-shadow: 0 0 10px black;
+    z-index: 3;
+    box-sizing: border-box;
+    margin: 0;
+    resize: both;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 20px 0 5px 0;
+    cursor: move;
+    z-index: 10;
+  }
+  .videoViewer video{
+    height: 100%;
+    width: 100%;
+  }
+  .videoViewer iframe{
+    height: 100%;
+    width: 100%;
+  }
+  .videoViewer img{
+    height: calc(100% - 25px);
+    width: 100%;
+    object-fit: contain;
+  }
+  .move{  
+    cursor: move;  
+  }
+  .videoViewer iframe{
+    height: calc(100% - 20px);
+    width: 100%;
+  }

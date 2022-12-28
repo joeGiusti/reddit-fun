@@ -1,0 +1,124 @@
+.dropDown{
+    float: right;
+    margin: 0 10px;
+    top: 14px;
+    right: 100px;
+    color: white;
+    height: 40px;
+    width: 200px;
+    background-color: rgb(40, 40, 40)   ;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+.dropDown input{
+    height: 100%;
+    width: 80%;
+}
+.listsContainer{
+    max-height: 90vh;
+    overflow-x: visible;
+    overflow-y: auto;
+}
+.dropDownItem{
+    height: 40px;
+    width: 200px;
+    background-color: rgb(23, 23, 23);
+    line-height: 40px;
+    box-sizing: border-box;
+    position: relative;
+    display: none;
+}
+.dropDown:hover .dropDownItem{
+    display: block;
+}
+
+input{
+    float: left;
+    outline: none;
+    border: none;
+    background-color: rgba(169, 169, 169, 0.455);
+    color: white;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.addButton{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(169, 169, 169, 0.682);
+}
+.addButton:hover{
+    background-color: green;
+    background-color: rgba(255, 254, 254, 0.682);
+    box-shadow: 0 0 10px white;
+
+}
+
+.dropDownItem:hover{
+    background-color: rgb(61, 61, 61);
+}
+.dropDownItem:hover .listItem{
+    display: inline;
+}
+.listItem{
+    position: absolute;
+    display: none;
+    left: -160px;
+    bottom: 0;
+    background-color: blue;
+}
+.addToList{
+    float: right;
+    background-color: rgb(40, 40, 40);
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    line-height: 32px;
+}
+.addToList:hover{
+    background-color: rgb(101, 101, 101);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.658);
+}
+.addToListMenu{
+    position: fixed;
+    padding: 20px 0;
+    width: 500px;
+    border-radius: 5px;
+    background-color: black;
+    top: calc(50% - 150px);
+    left: calc(50% - 250px);
+    color: white;
+    text-align: center;
+}
+.addToListMenuInput{
+    height: 30px;
+    width: 200px;
+    margin: 10px;
+}
+.addListSection{
+    display: inline-block;
+    margin: 10px;
+}
+button{
+    width: 90%;
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    background-color: rgb(150, 150, 150);
+    background-image: linear-gradient(rgba(150, 150, 150, 0), rgb(80, 80, 80));
+    cursor: pointer;
+    transition: 500ms;
+    color: white;
+
+}
+button:hover{
+    background-color: rgb(174, 174, 174);
+    transform: scale(0.99);
+}

@@ -1,0 +1,14 @@
+.listViewer{
+    color: white;
+    padding-top: 60px;
+    text-align: center;
+}
+.subPreview{
+    height: 400px;
+    width: 300px;
+    background-color: gray;
+    display: inline-block;
+    margin: 20px;
+    border-radius: 5px;
+    position: relative;
+}
