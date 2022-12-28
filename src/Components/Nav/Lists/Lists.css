@@ -106,7 +106,7 @@ input{
     margin: 10px;
 }
 button{
-    width: 90%;
+    width: 43%;
     height: 40px;
     border: none;
     outline: none;
@@ -116,6 +116,7 @@ button{
     cursor: pointer;
     transition: 500ms;
     color: white;
+    margin: 0 10px;
 
 }
 button:hover{

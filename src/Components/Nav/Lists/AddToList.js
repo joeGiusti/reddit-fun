@@ -15,7 +15,7 @@ function AddToList(props) {
         
     },[])
 
-    function addUrlToList(){
+    function addUrlToList(close){
         // Get the input link
         const urlValue = urlInputRef.current.value
         
@@ -28,8 +28,9 @@ function AddToList(props) {
         // Add it to the state and local storage by dispatching redux action
         dispatcher(addToList({listName: selectedList?.name, link: urlValue}))
 
-        // Close the window
-        props.setShowAddToList(false)
+        if(close  == true)
+            props.setShowAddToList(false)
+        
     }
 
   return (
@@ -48,7 +49,8 @@ function AddToList(props) {
             </div>
         </div>
         <div>
-            <button onClick={addUrlToList}>Add To List</button>
+            <button onClick={()=>addUrlToList(true)}>Add and Close</button>
+            <button onClick={addUrlToList}>Add to List</button>
         </div>
      </div>
   )

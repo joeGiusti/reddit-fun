@@ -8,11 +8,11 @@ const navSlice = createSlice({
         // The list of all the lists
         lists: [
             {
-              name: "list one",
+              name: "Favorites",
               links: ["r/cats", "r/funny"]
             },
             {
-              name: "list two",
+              name: "Other",
               links: ["r/cats", "r/funny"]
             },
           ],
@@ -24,11 +24,11 @@ const navSlice = createSlice({
             // Load the lists from local storage
             const loadedLists = localStorage.getItem("reddit-lists")
             // If lists were loaded put them in state
-            if(loadLists){
+            if(loadedLists){
                 state.lists =  JSON.parse(loadedLists) 
                 console.log("loaded lists: ")
                 console.log(JSON.parse(loadedLists))
-            }
+            } // Else it will be the default initial state
         },
         setCurrentUrl: (state, action) => {
             state.currentUrl = action.payload

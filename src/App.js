@@ -10,6 +10,21 @@ import { setCurrentUrl } from './Components/Nav/NavSlice';
 
 function App() {
 
+/*
+
+  ability to add and delete lists from list page
+    input field to change name onChange
+    delete button has a confirmation window
+
+  show an image from each list on the list link tile
+  maybe favorite one and save that in local storage with a use as list image button on the post
+  and it defaults to first post when its added (add after)
+
+  drag and drop to rearange lists
+
+  button to open reddit post on reddit in post
+
+*/ 
   const dispatcher = useDispatch()
   const firstLoad = useRef(true)
 
