@@ -4,153 +4,53 @@ import Column from './Components/Column';
 import Home from "./Pages/Home.js"
 import { Route, Router, Routes } from 'react-router-dom';
 import Nav from './Components/Nav/Nav';
+import ListViewer from './Pages/ListViewer';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUrl } from './Components/Nav/NavSlice';
 
 function App() {
 
-  const [dataState, setDataState] = useState([])
+  const dispatcher = useDispatch()
+  const firstLoad = useRef(true)
 
-  const postArrayRef = useRef([])
-  const observerRef = useRef()
-  const lastPost = useRef()
-  const urlArray = useRef([])
+  const url = useSelector(state => state.navSlice.currentUrl)
 
   useEffect(()=>{
+    
+    if(!firstLoad.current)
+      return
+    firstLoad.current = false
 
-    // Create an intersection observer
-    observerRef.current = createObserver()
+    getUrlFromLocation()
 
   },[])
  
-  // Creates an intersection observer taht will add posts when the last post is visible
-  function createObserver(){
-    return new IntersectionObserver(elements => {
-      elements.forEach(element => {
-        
-        if(element.isIntersecting){
-        
-          // Load more posts
-          loadNext()
-
-          // Stop observing the previous last posts
-          observerRef.current.unobserve(element.target)
-          element.target.classList.remove("last-post")          
-        }
-      })
-    })
-  }
-
-  // Gets the list of posts from the url and calls addToArry
-  function addFromLink(_sub, _after){
-
-    // Create the url from the input text
-    var subUrl = "https://www.reddit.com/" + _sub + ".json?limit=10"+"&after="+_after
+  // Gets url from window.location.href, if none sets a default
+  function getUrlFromLocation(){
+    // Look in the url for a sub link 
+    var fromHref = window.location.href.split("?")
+  
+    // If there is something there to add put it in the current url state
+    var urlFromLink = ""
+    if(Array.isArray(fromHref) && fromHref.length > 1)
+      urlFromLink = fromHref[1]
+    // If there is no link in the location set a default url   
+    else
+      urlFromLink = "r/catgifs"
     
-    // Fetch the json and add the posts in the data array of the json
-    fetch(subUrl).then(res=>res.json()).then(json=>addToArray(json.data.children))
-
+    // Put in the global store for other components
+    dispatcher(setCurrentUrl(urlFromLink))
   }
-
-  // Adds the given post items to the array of posts
-  function addToArray(_itemsToAdd){
-
-    console.log("postArrayRef.current")
-    console.log(postArrayRef.current)
-    console.log("_itemsToAdd")
-    console.log(_itemsToAdd)
-
-    // Make an array with both 
-    var tempArray = [...postArrayRef.current, ..._itemsToAdd]
-
-    // Save the after value of the last post so new posts can be laded when user scrolls past the last post
-    lastPost.current = tempArray[tempArray.length-1].kind+"_"+tempArray[tempArray.length-1].data.id
-
-
-    // Save the new array in the ref so we can add to it next time more loads
-    postArrayRef.current = tempArray
-
-    // Put the array in state to update the dom and display them
-    setDataState(tempArray)
-
-    // Add the observers after the state has updated and the posts are rendered
-    setTimeout(() => {
-      addObservers()
-    }, (1000));
-
-  }
-
-  // Adds the items to every other spot in the array of posts
-  function addToArray2Threads(_itemsToAdd){
-    var tempArray = []
-    var c = 0
-    var c2 = 0
-    var alt = true
-
-    while(c <= postArrayRef.current.length || c2 <= _itemsToAdd.length){
-      if(alt){
-        if(c < postArrayRef.current.length)
-          tempArray.push(postArrayRef.current[c])
-        c++
-        alt = false
-      }else{
-        if(c2 < _itemsToAdd.length)
-          tempArray.push(_itemsToAdd[c2])
-        c2++
-        alt = true
-      }
-    }
-    setDataState(tempArray)
-  }
-
-  // Uses the links in the text area to load posts
-  function loadFromText(){
-
-    // Removes the current posts
-    postArrayRef.current = []
-    lastPost.current = null
-
-    // Get the list of links
-    var string = document.getElementsByClassName("urlInput")[0].value
-    var links = string.split('\n')
-
-    urlArray.current = links
-
-    // Add to the list of posts from each one
-    //links.forEach(link => addFromLink(link, lastPost.current))
-
-    // Seperated this out so it can be called independent of the textbox reading and post array reset
-    loadNext()
-
-  }
-  function loadNext(){
-    console.log("loading next")
-    urlArray.current.forEach(link => addFromLink(link, lastPost.current))
-  }
-
-  function setUrl(event, _url){
-    event.stopPropagation()
-
-    window.location.href = window.location.href.split("/")[0] +"/reddit-fun/?"+_url
-  } 
-
-  function addObservers(){
-    console.log("adding observers")
-    var lastPosts = document.querySelectorAll(".last-post")
-    console.log("to:")
-    console.log(lastPosts)
-    lastPosts.forEach(post => {
-      observerRef.current.observe(post)
-
-    })
-  }
-
+ 
   return (
     <div>
     <Nav></Nav>
-    <Routes>            
-      <Route path="/" element={<Home/>} />
-      <Route path="/:type/:name" element={<Home/>} />
-      <Route path="/reddit-fun/" element={<Home/>} />
-    </Routes>    
+    {url?.includes("list")
+      ?
+      <ListViewer></ListViewer>
+      :
+      <Home></Home>
+    }
     </div>
   );
 }

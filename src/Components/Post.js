@@ -37,20 +37,20 @@ import { openTab } from '../GlobalFunctions/Functions.js'
 //onClick={()=>openTab(item.data.url)}
    return (
     <div key={index+item.id}>
-        {showPost && <VideoViewer close={closePost} item={item} openTab={openTab}></VideoViewer>}
+        {showPost && <VideoViewer close={closePost} item={item}></VideoViewer>}
         {(index % 2 == side) &&
         <div className={'redditDiv ' + ((index == dataState.length - 3 || index == dataState.length - 4) && " last-post")} onClick={openPost}>
             <div className='title'>{item.data.title}</div>            
             
             <div 
                 className='redditLink' 
-                onClick={event => openTab(event, item.data.subreddit_name_prefixed)}
+                onClick={event => openTab(item.data.subreddit_name_prefixed, event)}
             >
                 {item.data.subreddit_name_prefixed}
             </div>
             <div 
                 className='redditLink'
-                onClick={event => openTab(event, "user/"+item.data.author)}
+                onClick={event => openTab("user/"+item.data.author, event)}
             >
                 {"user/"+item.data.author}
             </div>            

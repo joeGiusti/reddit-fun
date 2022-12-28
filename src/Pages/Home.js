@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Column from '../Components/Column';
 import { setCurrentUrl } from '../Components/Nav/NavSlice';
@@ -11,14 +11,16 @@ function Home() {
   const postArrayRef = useRef([])
   const observerRef = useRef()
   const lastPost = useRef()
+  const currentUrlRef = useRef()
   const urlArray = useRef([])
   const firstLoad = useRef(true)
 
-  const { type, name } = useParams()
   const dispatcher = useDispatch()
+  const currentUrl = useSelector(state => state.navSlice.currentUrl)
 
   useEffect(()=>{
 
+    // Only run once even in stricktmode
     if(!firstLoad.current){
       firstLoad.current = false
       return
@@ -27,41 +29,20 @@ function Home() {
     // Create an intersection observer
     observerRef.current = createObserver()
 
-    // Gets a url from the window.location.href or sets a default
-    getUrlFromLocation()
-  
-    if((type == null) || (name == null)){
-      var urlLinks = window.location.href.split("?")
-      console.log(urlLinks)
-      // type = urlLink.split("/")[0]
-      // name = urlLink.split("/")[1]
-      if(Array.isArray(urlLinks) && urlLinks.length > 1)
-        urlArray.current = [urlLinks[1]]
-    }
+    // // Gets a url from the window.location.href or sets a default. Puts it in a ref and the store
+    // getUrlFromLocation()
 
-    // If there is no link specified in the url load from the text area
-    if(Array.isArray(urlArray.current) && urlArray.current.length < 1)
-        loadFromText()
-    // Else load from the url
-    else
-        loadFromURL()
 
   },[])
  
-  function getUrlFromLocation(){
-    // Look in the url for a sub link 
-    var fromHref = window.location.href.split("?")
-    
-    console.log("url array from location: ")
-    console.log(fromHref)
- 
-    // If there is something there to add put it in the current url state
-    if(Array.isArray(fromHref) && fromHref.length > 1)
-      dispatcher(setCurrentUrl(fromHref[1]))
-    // If there is no link in the location set a default url   
-    else
-      dispatcher(setCurrentUrl("r/catgifs"))
-  }
+  // When the currentUrl changes put it in a ref so it can be accessed in the event listeners
+  useEffect(()=>{
+    // Put the new currentUrl in a ref ehtn load the initial posts
+    currentUrlRef.current = currentUrl
+    loadInitial()
+  },[currentUrl])
+
+
 
   // Creates an intersection observer taht will add posts when the last post is visible
   function createObserver(){
@@ -137,36 +118,18 @@ function Home() {
     setDataState(tempArray)
   }
 
-  
 
-  // Uses the links in the text area to load posts
-  function loadFromText(){
-
-    // Removes the current posts
-    postArrayRef.current = []
-    lastPost.current = null
-    
-    // Puts the default page in the current url to load from
-    urlArray.current = ["r/catgifs"]
-
-
-    // Seperated this out so it can be called independent of the textbox reading and post array reset
-    loadNext()
-
+  function loadInitial(){
+      // Removes the current posts
+      postArrayRef.current = []
+      lastPost.current = null
+      
+      loadNext()
   }
-  function loadFromURL(){
 
-    console.log("loading from url")
-    console.log(urlArray.current)
-    // Put the value in the url into the urlArray as the only value
-    //urlArray.current = [type + "/" + name]
-
-    // Seperated this out so it can be called independent of the textbox reading and post array reset
-    loadNext()
-
-  }
   function loadNext(){
-    urlArray.current.forEach(link => addFromLink(link, lastPost.current))
+    addFromLink(currentUrlRef.current, lastPost.current)
+    //urlArray.current.forEach(link => addFromLink(link, lastPost.current))
   }
 
   function addObservers(){
