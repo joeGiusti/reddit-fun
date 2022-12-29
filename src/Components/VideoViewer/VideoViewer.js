@@ -65,6 +65,12 @@ function VideoViewer({item, close, openTab}) {
       dragCurrentCoordinates.current.x = dragCurrentCoordinates.current.x + deltaX
       dragCurrentCoordinates.current.y = dragCurrentCoordinates.current.y + deltaY
 
+      if(dragCurrentCoordinates.current.x < 20)
+        dragCurrentCoordinates.current.x = 20
+
+      if(dragCurrentCoordinates.current.y < 20)
+        dragCurrentCoordinates.current.y = 20
+
       if(element.current){
         element.current.style.left = dragCurrentCoordinates.current.x + "px"
         element.current.style.top = dragCurrentCoordinates.current.y + "px"

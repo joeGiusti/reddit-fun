@@ -20,7 +20,9 @@ export function openTab(_url, event){
     
     var currentUrl = window.location.href
     var fullUrl = ""
-    if(currentUrl.includes("localhost"))
+    if(_url?.includes("http"))
+      fullUrl = _url
+    else if(currentUrl.includes("localhost"))
         fullUrl = "http://localhost:3000/?" + _url
     else
         fullUrl = "https://joegiusti.github.io/reddit-fun/?" + _url

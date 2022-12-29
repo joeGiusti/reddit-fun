@@ -58,7 +58,7 @@ const navSlice = createSlice({
 
         },
         // action = {listName: "listName", link: "link"}
-        removeFromList(state, action){
+        removeFromList: (state, action) => {
 
             // Look through and add all that do not match the name
             var tempLists = []
@@ -79,9 +79,35 @@ const navSlice = createSlice({
             // Put the new version of the lists in state and localStorage
             state.lists = tempLists
             localStorage.setItem("reddit-lists", JSON.stringify(tempLists))
+        }, 
+        deleteList: (state, action) => {
+
+            var tempLists = []
+            
+            // Add all but the index to be deleted 
+            state.lists.forEach((item, index) =>{
+                if(action.payload != index)
+                tempLists.push(item)
+            })
+
+            // Put it in state and localstorage
+            state.lists = tempLists
+            localStorage.setItem("reddit-lists", JSON.stringify(tempLists))
+        },
+        setListName: (state, action) => {
+            // Get the lists
+            var tempLists = state.lists
+            
+            // Set the name of the corresponding one
+            tempLists[action.payload.index].name = action.payload
+            
+            // Put it in state and localstorage
+            state.lists = tempLists
+            localStorage.setItem("reddit-lists", JSON.stringify(tempLists))
+
         }
     }
 })
 
 export const navSliceReducer = navSlice.reducer
-export const {setCurrentUrl, addList, addToList, loadLists, removeFromList} = navSlice.actions
+export const {setCurrentUrl, addList, addToList, loadLists, removeFromList, deleteList, setListName} = navSlice.actions

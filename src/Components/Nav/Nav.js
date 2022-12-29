@@ -6,6 +6,7 @@ import List from "./Lists/Lists.js"
 import { useDispatch, useSelector } from 'react-redux'
 import AddToList from './Lists/AddToList.js'
 import { loadLists } from './NavSlice'
+import { setUrl } from '../../GlobalFunctions/Functions'
 
 function Nav(props) {
 
@@ -164,14 +165,8 @@ function Nav(props) {
 
   return (
     <div className={`navBar ${showNavBackground && " navBackground"} ${showNav && " showNav"} ${!displayNav && " dontDisplay"}`}>
-        <img className='navLogo' src={netflixLogoUrl}></img>
+        <img className='navLogo' src={netflixLogoUrl} onClick={()=>setUrl("")}></img>
         <img className='navAvatar'  src={squareAvatarUrl} onClick={()=>displayAuthMenu(true)}></img>
-        {/* <div className='dropDown'>
-            Common Links
-            {pages.map((pageInfo, index) => (
-                <div key={"linkItem"+index} className='dropDownItem' onClick={(e)=>props.openTab(e, pageInfo.url)}>{pageInfo.name}</div>
-            ))}
-        </div> */}
         <List></List>
         <div className='addToList' onClick={()=>setShowAddToList(true)}>+</div>
         {showAuthMenu && <AuthMenu setShowAuthMenu={displayAuthMenu}></AuthMenu>}

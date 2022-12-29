@@ -12,9 +12,6 @@ function App() {
 
 /*
 
-  ability to add and delete lists from list page
-    input field to change name onChange
-    delete button has a confirmation window
 
   show an image from each list on the list link tile
   maybe favorite one and save that in local storage with a use as list image button on the post
@@ -23,6 +20,10 @@ function App() {
   drag and drop to rearange lists
 
   button to open reddit post on reddit in post
+
+  clicking home icon brings user back to home page
+
+  default page is a combination of favorites
 
 */ 
   const dispatcher = useDispatch()
